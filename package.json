@@ -11,11 +11,14 @@
   },
   "dependencies": {
     "@types/react-router-dom": "^5.3.3",
+    "faker": "^6.6.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.1"
   },
   "devDependencies": {
+    "@types/faker": "^6.6.9",
+    "@types/node": "^20.10.4",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
