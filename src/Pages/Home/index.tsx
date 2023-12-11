@@ -28,7 +28,7 @@ export function Home() {
         onClick={HandleName}
         className="mt-5  py-2 px-3 rounded-lg bg-gray-300 hover:bg-green-800 hover:text-white"
       >
-        Comece o jogo ''
+        Comece o jogo
       </button>
     </main>
   );

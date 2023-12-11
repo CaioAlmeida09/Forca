@@ -4,10 +4,11 @@ export function Header() {
   const location = useLocation();
   const { name } = location.state || {};
   return (
-    <header className="flex justify-center items-center px-8 bg-blue-400">
-      <p className="h-20 w-full flex justify-between items-center font-medium text-xl">
-        Nivel 1
-      </p>
+    <header
+      className="h-20 flex justify-between items-center px-12  text-white"
+      style={{ background: "linear-gradient(to bottom, #2D2D2D, black)" }}
+    >
+      <p className=" font-medium text-xl">Nivel 1</p>
       <h1 className=" text-lg font-bold">Bem-Vindo {name}</h1>
     </header>
   );
