@@ -9,14 +9,14 @@ export function Letras() {
   const [positionCorreta, setPositionCorreta] = useState<number[]>([]);
   const [positionIncorreta, setPositionIncorreta] = useState<number[]>([]);
   const [todasLetrasCorretas, setTodasLetrasCorretas] = useState(false);
-  const [tentativa2, settentativa2] = useState<string[]>([]);
+
   const [outrosElementos, setOutrosElementos] = useState([]);
   const palavras = [
-    "Moela",
-    "Gato",
-    "Vespa",
-    "Ouriço",
-    "Oceano",
+    "MOELA",
+    "FILHO",
+    "GALHO",
+    "CARGO",
+    "FALSO",
     // Adicione mais palavras conforme necessário
   ];
 
@@ -80,7 +80,6 @@ export function Letras() {
 
     await setResposta(novasRespostas);
 
-    // Verificar se todas as letras da resposta são iguais às letras da palavra
     const todasLetrasCorretas =
       novasRespostas.join("") === letrasDaPalavra.join("");
 
@@ -104,59 +103,43 @@ export function Letras() {
     console.log("Posições incorretas:", posicoesIncorretas);
     setPositionCorreta(posicoesCorretas);
     setPositionIncorreta(posicoesIncorretas);
-
-    if (tentativa2 && tentativa2.length > 0) {
-      console.log(tentativa2);
-    }
   }
 
   return (
     <>
       <Header />
       <div className="bg-black w-full h-screen flex flex-col justify-start items-center px-5">
-        <section className="flex gap-4 justify-center items-center p-8 md:w-80 w-72">
-          {letrasDaPalavra &&
-            letrasDaPalavra.map((item, index) => (
-              <input
-                key={item}
-                className={`bg-gray-800 flex justify-center h-11 w-12 items-center rounded-full text-white text-3xl text-center ${
-                  positionCorreta && positionCorreta.includes(index)
-                    ? "bg-green-400"
-                    : todasLetrasCorretas
-                    ? "bg-green-400"
-                    : ""
-                }`}
-                type="text"
-                data-index={index}
-                id={`input-${index}`}
-              />
-            ))}
-        </section>
-        <section className="flex gap-4 justify-center items-center p-8 md:w-80 w-72">
-          {resposta &&
-            resposta.map((item, index) => (
-              <input
-                key={item}
-                onChange={(e) =>
-                  settentativa2([e.target.value, ...outrosElementos])
-                }
-                className={`bg-gray-800 flex justify-center h-11 w-12 items-center rounded-full text-white text-3xl text-center ${
-                  positionCorreta && positionCorreta.includes(index)
-                    ? "bg-green-400"
-                    : ""
-                }`}
-                type="text"
-              />
-            ))}
-        </section>
-
-        <button
-          className="bg-green-400 py-3 px-4"
-          onClick={() => HandleResposta()}
-        >
-          {" "}
-          Verificar resposta
-        </button>
+        {todasLetrasCorretas === true ? (
+          <h1 className="bg-blue-200"> Parabéns</h1>
+        ) : (
+          <>
+            <section className="flex gap-4 justify-center items-center p-8 md:w-80 w-72">
+              {letrasDaPalavra &&
+                letrasDaPalavra.map((item, index) => (
+                  <input
+                    key={item}
+                    className={`bg-gray-800 flex justify-center h-11 w-12 items-center rounded-full text-white text-3xl text-center ${
+                      positionCorreta && positionCorreta.includes(index)
+                        ? "bg-green-400"
+                        : todasLetrasCorretas
+                        ? "bg-green-400"
+                        : ""
+                    }`}
+                    type="text"
+                    data-index={index}
+                    id={`input-${index}`}
+                  />
+                ))}
+            </section>
+            <button
+              className="bg-green-400 py-3 px-4"
+              onClick={() => HandleResposta()}
+            >
+              {" "}
+              Verificar resposta
+            </button>{" "}
+          </>
+        )}
 
         <section className="grid grid-cols-6 gap-2 mt-8 w-71">
           {Letras.map((item) => (
@@ -171,11 +154,6 @@ export function Letras() {
             </button>
           ))}
         </section>
-
-        {/* Exibindo a última letra clicada (apenas para fins de demonstração) */}
-        {letrasClicadas.length > 0 && (
-          <p>Letras clicadas: {letrasClicadas.join(", ")}</p>
-        )}
       </div>
     </>
   );
