@@ -8,16 +8,13 @@ export function Letras() {
   const [resposta, setResposta] = useState<string[]>([]);
   const [positionCorreta, setPositionCorreta] = useState<number[]>([]);
   const [positionIncorreta, setPositionIncorreta] = useState<number[]>([]);
+  const [positionTeste, setPositionTeste] = useState<number[]>([]);
   const [todasLetrasCorretas, setTodasLetrasCorretas] = useState(false);
+  const [tentativas, setTentativas] = useState(1);
 
-  const [outrosElementos, setOutrosElementos] = useState([]);
   const palavras = [
     "MOELA",
-    "FILHO",
-    "GALHO",
-    "CARGO",
-    "FALSO",
-    // Adicione mais palavras conforme necessário
+    // "FILHO", "GALHO", "CARGO", "FALSO"
   ];
 
   useEffect(() => {
@@ -87,12 +84,20 @@ export function Letras() {
 
     const posicoesCorretas: number[] = [];
     const posicoesIncorretas: number[] = [];
+    const positionTeste: number[] = [];
 
     novasRespostas.forEach((letra, index) => {
       const letraCorreta = letrasDaPalavra && letrasDaPalavra[index];
 
       if (letraCorreta !== undefined && letra === letraCorreta.toUpperCase()) {
         posicoesCorretas.push(index);
+      }
+      if (
+        letraCorreta !== undefined &&
+        letraCorreta.toUpperCase() !== letra &&
+        letrasDaPalavra.includes(letra.toUpperCase())
+      ) {
+        positionTeste.push(index);
       } else {
         posicoesIncorretas.push(index);
       }
@@ -101,8 +106,11 @@ export function Letras() {
     console.log("Novas Respostas:", novasRespostas);
     console.log("Posições corretas:", posicoesCorretas);
     console.log("Posições incorretas:", posicoesIncorretas);
+    console.log("Letra correta Posição Diferente: ", positionTeste);
     setPositionCorreta(posicoesCorretas);
     setPositionIncorreta(posicoesIncorretas);
+    setPositionTeste(positionTeste);
+    setTentativas(tentativas + 1);
   }
 
   return (
@@ -113,7 +121,7 @@ export function Letras() {
           <h1 className="bg-blue-200"> Parabéns</h1>
         ) : (
           <>
-            <section className="flex gap-4 justify-center items-center p-8 md:w-80 w-72">
+            <section className="flex gap-4 justify-center items-center p-8 md:w-80 h-11 w-72">
               {letrasDaPalavra &&
                 letrasDaPalavra.map((item, index) => (
                   <input
@@ -121,8 +129,8 @@ export function Letras() {
                     className={`bg-gray-800 flex justify-center h-11 w-12 items-center rounded-full text-white text-3xl text-center ${
                       positionCorreta && positionCorreta.includes(index)
                         ? "bg-green-400"
-                        : todasLetrasCorretas
-                        ? "bg-green-400"
+                        : positionTeste && positionTeste.includes(index)
+                        ? "bg-yellow-300"
                         : ""
                     }`}
                     type="text"
@@ -131,8 +139,88 @@ export function Letras() {
                   />
                 ))}
             </section>
+            {tentativas >= 2 ? (
+              <section className="flex gap-4 justify-center items-center p-8 md:w-80 h-11 w-72">
+                {letrasDaPalavra &&
+                  letrasDaPalavra.map((item, index) => (
+                    <input
+                      key={item}
+                      className={`bg-gray-800 flex justify-center h-11 w-12 items-center rounded-full text-white text-3xl text-center ${
+                        positionCorreta && positionCorreta.includes(index)
+                          ? "bg-green-400"
+                          : ""
+                      }`}
+                      type="text"
+                      data-index={index}
+                      id={`input-${index}`}
+                    />
+                  ))}
+              </section>
+            ) : (
+              <div> </div>
+            )}
+            {tentativas >= 3 ? (
+              <section className="flex gap-4 justify-center items-center p-8 md:w-80 h-11 w-72">
+                {letrasDaPalavra &&
+                  letrasDaPalavra.map((item, index) => (
+                    <input
+                      key={item}
+                      className={`bg-gray-800 flex justify-center h-11 w-12 items-center rounded-full text-white text-3xl text-center ${
+                        positionCorreta && positionCorreta.includes(index)
+                          ? "bg-green-400"
+                          : ""
+                      }`}
+                      type="text"
+                      data-index={index}
+                      id={`input-${index}`}
+                    />
+                  ))}
+              </section>
+            ) : (
+              <div> </div>
+            )}
+            {tentativas >= 4 ? (
+              <section className="flex gap-4 justify-center items-center h-11 p-8 md:w-80 w-72">
+                {letrasDaPalavra &&
+                  letrasDaPalavra.map((item, index) => (
+                    <input
+                      key={item}
+                      className={`bg-gray-800 flex justify-center h-11 w-12 items-center rounded-full text-white text-3xl text-center ${
+                        positionCorreta && positionCorreta.includes(index)
+                          ? "bg-green-400"
+                          : ""
+                      }`}
+                      type="text"
+                      data-index={index}
+                      id={`input-${index}`}
+                    />
+                  ))}
+              </section>
+            ) : (
+              <div> </div>
+            )}
+            {tentativas >= 5 ? (
+              <section className="flex gap-4 justify-center items-center h-11 p-8 md:w-80 w-72">
+                {letrasDaPalavra &&
+                  letrasDaPalavra.map((item, index) => (
+                    <input
+                      key={item}
+                      className={`bg-gray-800 flex justify-center h-11 w-12 items-center rounded-full text-white text-3xl text-center ${
+                        positionCorreta && positionCorreta.includes(index)
+                          ? "bg-green-400"
+                          : ""
+                      }`}
+                      type="text"
+                      data-index={index}
+                      id={`input-${index}`}
+                    />
+                  ))}
+              </section>
+            ) : (
+              <div> </div>
+            )}
             <button
-              className="bg-green-400 py-3 px-4"
+              className="bg-green-400 py-3 px-4 mt-5"
               onClick={() => HandleResposta()}
             >
               {" "}
