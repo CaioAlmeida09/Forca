@@ -8,6 +8,9 @@ export function Letras() {
   const [resposta, setResposta] = useState<string[]>([]);
   const [positionCorreta, setPositionCorreta] = useState<number[]>([]);
   const [positionIncorreta, setPositionIncorreta] = useState<number[]>([]);
+  const [todasLetrasCorretas, setTodasLetrasCorretas] = useState(false);
+  const [tentativa2, settentativa2] = useState<string[]>([]);
+  const [outrosElementos, setOutrosElementos] = useState([]);
   const palavras = [
     "Moela",
     "Gato",
@@ -23,7 +26,7 @@ export function Letras() {
     setPalavraAleatoria(novaPalavraAleatoria);
     const letras = novaPalavraAleatoria.split("");
     setLetrasDaPalavra(letras);
-
+    setResposta([]);
     return;
   }, []);
 
@@ -77,6 +80,12 @@ export function Letras() {
 
     await setResposta(novasRespostas);
 
+    // Verificar se todas as letras da resposta são iguais às letras da palavra
+    const todasLetrasCorretas =
+      novasRespostas.join("") === letrasDaPalavra.join("");
+
+    setTodasLetrasCorretas(todasLetrasCorretas);
+
     const posicoesCorretas: number[] = [];
     const posicoesIncorretas: number[] = [];
 
@@ -95,6 +104,10 @@ export function Letras() {
     console.log("Posições incorretas:", posicoesIncorretas);
     setPositionCorreta(posicoesCorretas);
     setPositionIncorreta(posicoesIncorretas);
+
+    if (tentativa2 && tentativa2.length > 0) {
+      console.log(tentativa2);
+    }
   }
 
   return (
@@ -106,18 +119,37 @@ export function Letras() {
             letrasDaPalavra.map((item, index) => (
               <input
                 key={item}
-                className={`bg-gray-800 flex justify-center h-11 w-12 items-center rounded-full mb-8 mt-8 text-white text-3xl text-center ${
+                className={`bg-gray-800 flex justify-center h-11 w-12 items-center rounded-full text-white text-3xl text-center ${
                   positionCorreta && positionCorreta.includes(index)
                     ? "bg-green-400"
+                    : todasLetrasCorretas
+                    ? "bg-green-400"
                     : ""
-                }
-              }`}
+                }`}
                 type="text"
                 data-index={index}
                 id={`input-${index}`}
               />
             ))}
         </section>
+        <section className="flex gap-4 justify-center items-center p-8 md:w-80 w-72">
+          {resposta &&
+            resposta.map((item, index) => (
+              <input
+                key={item}
+                onChange={(e) =>
+                  settentativa2([e.target.value, ...outrosElementos])
+                }
+                className={`bg-gray-800 flex justify-center h-11 w-12 items-center rounded-full text-white text-3xl text-center ${
+                  positionCorreta && positionCorreta.includes(index)
+                    ? "bg-green-400"
+                    : ""
+                }`}
+                type="text"
+              />
+            ))}
+        </section>
+
         <button
           className="bg-green-400 py-3 px-4"
           onClick={() => HandleResposta()}
