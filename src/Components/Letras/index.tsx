@@ -5,7 +5,9 @@ export function Letras() {
   const [palavraAleatoria, setPalavraAleatoria] = useState<string | null>(null);
   const [resposta, setResposta] = useState<string>("");
   // const [tentativas, setTentativas] = useState(1);
-  const [HistoricoPalavras, setHistoricoPalavras] = useState([]);
+  const [HistoricoPalavras, setHistoricoPalavras] = useState<
+    Record<string, string | null>[]
+  >([]);
   const palavras = [
     "MOELA",
     // , "FILHO", "GALHO", "CARGO", "FALSO"
@@ -49,7 +51,6 @@ export function Letras() {
   ];
 
   async function HandleResposta() {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const obj: Record<string, string | null> = {
       word: resposta,
       l1: null,
@@ -67,29 +68,25 @@ export function Letras() {
       RespostaSoletrada.map((item, index) => {
         if (item === PalavraAleatoriaSoletrada[index]) {
           obj[GetIndex(index + 1)] = "posicaoCorreta";
-        } else if (PalavraAleatoriaSoletrada?.includes(item)) {
+        } else if (PalavraAleatoriaSoletrada.includes(item)) {
           obj[GetIndex(index + 1)] = "posicaoIncorreta";
         } else {
           obj[GetIndex(index + 1)] = "errado";
         }
       });
     }
-    setHistoricoPalavras((prevHistorico) => [...prevHistorico, obj]);
-    console.log(HistoricoPalavras);
+    setHistoricoPalavras((prevHistorico) => {
+      const novoHistorico = [...prevHistorico, obj];
+      console.log(novoHistorico);
+      return novoHistorico;
+    });
   }
+
   function GetIndex(index: number): string {
-    if (index === 1) {
-      return "l1";
-    }
-    if (index === 2) {
-      return "l2";
-    }
-    if (index === 3) {
-      return "l3";
-    }
-    if (index === 4) {
-      return "l4";
-    }
+    if (index === 1) return "l1";
+    if (index === 2) return "l2";
+    if (index === 3) return "l3";
+    if (index === 4) return "l4";
     return "l5";
   }
 
