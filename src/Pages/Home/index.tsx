@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Logo from "../../assets/logo.jpg";
+
 import { useState } from "react";
 
 export function Home() {
@@ -14,7 +14,7 @@ export function Home() {
       <h1 className=" text-white md:text-4xl text-2xl font-medium ">
         Seja Bem Vindo ao Jogo da Forca
       </h1>
-      <img className=" mt-8 rounded-md" src={Logo} alt="logo" />
+
       <section className="flex flex-col gap-4 mt-8 max-w-3xl w-full p-6 h-30">
         <label className="text-xl font-medium text-zinc-100">
           Digite seu nome:
