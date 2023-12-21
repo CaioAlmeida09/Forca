@@ -5,7 +5,7 @@ export function Header() {
   const { name } = location.state || {};
   return (
     <header
-      className="h-20 flex justify-between items-center px-12  text-white"
+      className=" h-20 flex justify-between items-center px-12  text-white"
       style={{ background: "linear-gradient(to bottom, #2D2D2D, black)" }}
     >
       <p className=" font-medium text-xl">Nivel 1</p>
