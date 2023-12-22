@@ -9,13 +9,13 @@ export function Letras() {
   const [palavraAleatoria, setPalavraAleatoria] = useState<string | null>(null);
   const [resposta, setResposta] = useState<string>("");
   const [tentativas, setTentativas] = useState(1);
-  const [todosCorreto, setTodosCorreto] = useState(false);
   const [HistoricoPalavras, setHistoricoPalavras] = useState<
     Record<string, string | null>[]
   >([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const palavras = ["MOELA", "FILHO", "GALHO", "CARGO", "FALSO"];
 
+  const ganhou = false;
   useEffect(() => {
     const indiceAleatorio = Math.floor(Math.random() * palavras.length);
     const novaPalavraAleatoria = palavras[indiceAleatorio];
@@ -76,28 +76,29 @@ export function Letras() {
       RespostaSoletrada.map((item, index) => {
         if (item === PalavraAleatoriaSoletrada[index]) {
           obj[GetIndex(index + 1)] = "posicaoCorreta";
-          setTodosCorreto(true);
         } else if (PalavraAleatoriaSoletrada.includes(item)) {
           obj[GetIndex(index + 1)] = "LetraCorretaPosicaoIncorreta";
-          setTodosCorreto(false);
         } else {
           obj[GetIndex(index + 1)] = "errado";
-          setTodosCorreto(false);
         }
       });
+      if (RespostaSoletrada.join("") === PalavraAleatoriaSoletrada.join("")) {
+        const ganhou = true;
+        Swal.fire({
+          title: "Parabens",
+          text: "Você Conseguiu",
+          icon: "success",
+        });
+        console.log(ganhou);
+      }
     }
-    if (todosCorreto === true) {
+
+    if (tentativas > 5 && !ganhou) {
       Swal.fire({
-        title: "Parabens",
-        text: "Você Conseguiu",
-        icon: "success",
-      });
-    }
-    if (tentativas > 5 && todosCorreto === false) {
-      Swal.fire({
-        title: "Que Pena",
-        text: "Você não conseguiu dessa vez",
+        title: "Que Pena...",
+        text: "Você não conseguiu dessa vez.",
         icon: "error",
+        color: "#ff7b5a",
       });
     }
     // transformei em uma função pra poder rendereizar
