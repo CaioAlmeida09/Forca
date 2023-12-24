@@ -1,20 +1,30 @@
 import { useState, useEffect } from "react";
-import { Header } from "../Header";
+import { useNavigate } from "react-router-dom";
+import { Header } from "../../Components/Header";
 import { useRef } from "react";
 import Swal from "sweetalert2";
+import { FaRegArrowAltCircleUp } from "react-icons/fa";
+import { RiQuestionnaireLine } from "react-icons/ri";
+import { FaRegArrowAltCircleDown } from "react-icons/fa";
+import Exemplo from "../../assets/Exemplo1.jpg";
 
 // https://sweetalert2.github.io/#download
 
-export function Letras() {
+export function Nivel1() {
   const [palavraAleatoria, setPalavraAleatoria] = useState<string | null>(null);
   const [resposta, setResposta] = useState<string>("");
   const [tentativas, setTentativas] = useState(1);
+  const [header, setHeader] = useState(true);
+  const [interrogation, setInterrogation] = useState(false);
   const [HistoricoPalavras, setHistoricoPalavras] = useState<
     Record<string, string | null>[]
   >([]);
   const inputRef = useRef<HTMLInputElement>(null);
-  const palavras = ["MOELA", "FILHO", "GALHO", "CARGO", "FALSO"];
-
+  const palavras = [
+    "MOELA",
+    // , "FILHO", "GALHO", "CARGO", "FALSO"
+  ];
+  const navigate = useNavigate();
   const ganhou = false;
   useEffect(() => {
     const indiceAleatorio = Math.floor(Math.random() * palavras.length);
@@ -88,6 +98,8 @@ export function Letras() {
           title: "Parabens",
           text: "Você Conseguiu",
           icon: "success",
+        }).then(() => {
+          navigate("/nivel2");
         });
         console.log(ganhou);
       }
@@ -128,13 +140,81 @@ export function Letras() {
     setResposta(resposta + item);
   }
 
+  function Arrow() {
+    if (header === false) {
+      setHeader(true);
+    }
+    if (header === true) setHeader(false);
+
+    setTimeout(() => {
+      inputRef.current && inputRef.current.focus();
+    }, 30);
+  }
+
+  function interrogationFunction() {
+    if (interrogation === false) {
+      setInterrogation(true);
+    }
+    if (interrogation === true) {
+      setInterrogation(false);
+    }
+    setTimeout(() => {
+      inputRef.current && inputRef.current.focus();
+    }, 30);
+  }
   return (
     <>
-      <Header />
-      <div className="bg-black w-full h-screen flex flex-col justify-start items-center p-5">
+      {header === true ? <Header /> : <div></div>}
+      <div className="bg-black w-full h-screen flex flex-col justify-start items-center p-5 ">
+        <section className="flex justify-between items-start w-full md:max-w-sm">
+          {header === true ? (
+            <button onClick={Arrow}>
+              <FaRegArrowAltCircleUp size={30} color="#fff" />
+            </button>
+          ) : (
+            <button onClick={Arrow}>
+              {" "}
+              <FaRegArrowAltCircleDown size={30} color="#fff" />
+            </button>
+          )}
+          <button onClick={interrogationFunction}>
+            {" "}
+            <RiQuestionnaireLine size={30} color="#fff" />{" "}
+          </button>
+        </section>
+        {interrogation === true ? (
+          <>
+            <div className=" w-full md:max-w-sm absolute mt-10 h-auto bg-gray-700 p-6 rounded-lg shadow-md flex flex-col items-center">
+              <h1 className="text-2xl font-bold mb-4">Como Jogar?</h1>
+              <h2 className="text-lg font-semibold mb-2 mx-auto">Nível 1</h2>
+              <ul className="text-lg font-medium list-disc pl-6">
+                <li>
+                  Digite uma palavra. Ao final de cada tentativa, o sistema te
+                  mostra o quão perto você está de resolver o enigma.
+                </li>
+                <li>
+                  Se a letra estiver dentro da palavra, mas em outra posição, a
+                  cor da letra será amarela. Se a letra estiver na posição
+                  correta, a cor será verde, e se a letra não existir na
+                  palavra, a cor será vermelha.
+                </li>
+                {/* Adicione aqui mais itens conforme necessário */}
+              </ul>
+              <img className="my-4 rounded-lg" src={Exemplo} alt="Exemplo" />
+              <button
+                className=" px-3 py-2 bg-black text-lg text-green-400 rounded-lg mt-2 hover:bg-green-400 hover:text-black"
+                onClick={interrogationFunction}
+              >
+                {" "}
+                vamos começar
+              </button>
+            </div>
+          </>
+        ) : null}
+
         <input
           ref={inputRef}
-          className="opacity-0"
+          className="opacity-0 md:disabled:"
           autoFocus
           value={resposta}
           onChange={(e) => {

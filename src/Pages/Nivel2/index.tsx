@@ -1,4 +1,4 @@
-export function Medi() {
+export function Nivel2() {
   return (
     <div>
       <h1 className="bg-blue-400"> MEDI </h1>

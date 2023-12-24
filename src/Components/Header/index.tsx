@@ -5,10 +5,14 @@ export function Header() {
   const { name } = location.state || {};
   return (
     <header
-      className=" h-20 flex justify-between items-center px-12  text-white"
+      className=" h-16 flex justify-between items-center px-5 text-white"
       style={{ background: "linear-gradient(to bottom, #2D2D2D, black)" }}
     >
-      <p className=" font-medium text-xl">Nivel 1</p>
+      <section className="flex gap-5">
+        <p className=" font-medium md:text-xl text-base">Nivel 1</p>
+        <p className=" font-medium md:text-xl text-base">Nivel 2</p>
+        <p className=" font-medium md:text-xl text-base">Nivel 3</p>
+      </section>
       <h1 className=" text-lg font-bold">Bem-Vindo {name}</h1>
     </header>
   );
