@@ -27,8 +27,6 @@ export function Nivel2() {
   >([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const palavras = ["MOELA", "FILHO", "GALHO", "CARGO", "FALSO"];
-
-  const ganhou = false;
   useEffect(() => {
     // sorteio 1
     const indiceAleatorio = Math.floor(Math.random() * palavras.length);
@@ -38,7 +36,8 @@ export function Nivel2() {
     const indiceAleatorio2 = Math.floor(Math.random() * palavras.length);
     const novaPalavraAleatoria2 = palavras[indiceAleatorio2];
     setPalavraAleatoria2(novaPalavraAleatoria2);
-
+    console.log(palavraAleatoria);
+    console.log(palavraAleatoria2);
     setTimeout(() => {
       inputRef.current && inputRef.current.focus();
     }, 0);
@@ -91,8 +90,6 @@ export function Nivel2() {
     const PalavraAleatoriaSoletrada2 = palavraAleatoria2
       ?.toUpperCase()
       .split("");
-    console.log(palavraAleatoria);
-    console.log(palavraAleatoria2);
 
     if (PalavraAleatoriaSoletrada && PalavraAleatoriaSoletrada2) {
       RespostaSoletrada.map((item, index) => {
@@ -108,16 +105,21 @@ export function Nivel2() {
           obj[GetIndex(index + 1)] = "errado";
         }
       });
+      let ganhou = false;
+      let PrimeiroAcerto = false;
+      let SegundoAcerto = false;
 
       if (RespostaSoletrada.join("") === PalavraAleatoriaSoletrada.join("")) {
+        PrimeiroAcerto = true;
         setPrimeiroAcerto(true);
       }
       if (RespostaSoletrada.join("") === PalavraAleatoriaSoletrada2.join("")) {
+        SegundoAcerto = true;
         setSegundoAcerto(true);
       }
 
       if (PrimeiroAcerto && SegundoAcerto) {
-        const ganhou = true;
+        ganhou = true;
         Swal.fire({
           title: "Parabens",
           text: "Você Conseguiu",
@@ -208,7 +210,11 @@ export function Nivel2() {
           <>
             <div className=" w-full md:max-w-sm absolute mt-10 h-auto bg-gray-700 p-6 rounded-lg shadow-md flex flex-col items-center">
               <h1 className="text-2xl font-bold mb-4">Como Jogar?</h1>
-              <h2 className="text-lg font-semibold mb-2 mx-auto">Nível 1</h2>
+              <h2 className="text-lg font-semibold mb-2 mx-auto">Nível 2</h2>
+              <h2 className="text-lg font-semibold mb-2 mx-auto">
+                Você precisa acertar
+                <span className="font-bold"> duas </span> palavras
+              </h2>
               <ul className="text-lg font-medium list-disc pl-6">
                 <li>
                   Digite uma palavra. Ao final de cada tentativa, o sistema te
@@ -300,6 +306,8 @@ export function Nivel2() {
                           : item[GetIndex(letraIndex + 1)] ===
                             "LetraCorretaPosicaoIncorreta2"
                           ? "bg-yellow-500"
+                          : SegundoAcerto === true
+                          ? "bg-green-500 text-green-500"
                           : "bg-red-500"
                       }`}
                     >
