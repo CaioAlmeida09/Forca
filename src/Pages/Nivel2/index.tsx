@@ -21,6 +21,7 @@ export function Nivel2() {
   const [interrogation, setInterrogation] = useState(false);
   const [PrimeiroAcerto, setPrimeiroAcerto] = useState(false);
   const [SegundoAcerto, setSegundoAcerto] = useState(false);
+  const [ganhou, setGanhou] = useState(false);
 
   const [HistoricoPalavras, setHistoricoPalavras] = useState<
     Record<string, string | null>[]
@@ -36,8 +37,7 @@ export function Nivel2() {
     const indiceAleatorio2 = Math.floor(Math.random() * palavras.length);
     const novaPalavraAleatoria2 = palavras[indiceAleatorio2];
     setPalavraAleatoria2(novaPalavraAleatoria2);
-    console.log(palavraAleatoria);
-    console.log(palavraAleatoria2);
+
     setTimeout(() => {
       inputRef.current && inputRef.current.focus();
     }, 0);
@@ -46,6 +46,18 @@ export function Nivel2() {
   useEffect(() => {
     inputRef.current && inputRef.current.focus();
   }, [resposta]);
+  useEffect(() => {
+    if (PrimeiroAcerto && SegundoAcerto) {
+      Swal.fire({
+        title: "Parabéns",
+        text: "Você Conseguiu",
+        icon: "success",
+        showConfirmButton: true,
+      });
+    }
+  }, [PrimeiroAcerto, SegundoAcerto]);
+
+  //
 
   const Letras = [
     "A",
@@ -75,8 +87,12 @@ export function Nivel2() {
     "Y",
     "Z",
   ];
+
   // adicionei o Record
   async function HandleResposta() {
+    console.log(palavraAleatoria);
+    console.log(palavraAleatoria2);
+
     const obj: Record<string, string | null> = {
       word: resposta,
       l1: null,
@@ -105,27 +121,12 @@ export function Nivel2() {
           obj[GetIndex(index + 1)] = "errado";
         }
       });
-      let ganhou = false;
-      let PrimeiroAcerto = false;
-      let SegundoAcerto = false;
 
       if (RespostaSoletrada.join("") === PalavraAleatoriaSoletrada.join("")) {
-        PrimeiroAcerto = true;
         setPrimeiroAcerto(true);
       }
       if (RespostaSoletrada.join("") === PalavraAleatoriaSoletrada2.join("")) {
-        SegundoAcerto = true;
         setSegundoAcerto(true);
-      }
-
-      if (PrimeiroAcerto && SegundoAcerto) {
-        ganhou = true;
-        Swal.fire({
-          title: "Parabens",
-          text: "Você Conseguiu",
-          icon: "success",
-        });
-        console.log(ganhou);
       }
 
       if (tentativas > 5 && !ganhou) {
@@ -307,7 +308,7 @@ export function Nivel2() {
                             "LetraCorretaPosicaoIncorreta2"
                           ? "bg-yellow-500"
                           : SegundoAcerto === true
-                          ? "bg-green-500 text-green-500"
+                          ? "bg-green-500 "
                           : "bg-red-500"
                       }`}
                     >
