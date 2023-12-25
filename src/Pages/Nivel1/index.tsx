@@ -100,6 +100,9 @@ export function Nivel1() {
           icon: "success",
         }).then(() => {
           navigate("/nivel2");
+          setResposta("");
+          setTentativas(1);
+          setHistoricoPalavras([]);
         });
         console.log(ganhou);
       }
@@ -269,7 +272,7 @@ export function Nivel1() {
           Tentativa: <span className="text-blue-300"> {tentativas} </span>{" "}
         </p>
         <button
-          className="bg-green-400 py-2 px-3 mt-5 hover:bg-green-800 rounded-lg"
+          className="bg-green-400 py-2 px-3 mt-5 rounded-lg"
           onClick={() => {
             HandleResposta();
             inputRef.current && inputRef.current.focus();
