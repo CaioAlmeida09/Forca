@@ -168,7 +168,7 @@ export function Nivel1() {
   return (
     <>
       {header === true ? <Header /> : <div></div>}
-      <div className="bg-black w-full h-screen flex flex-col justify-start items-center p-5 ">
+      <div className=" bg-gray-800 h-screen flex flex-col justify-start items-center p-5 ">
         <section className="flex justify-between items-start w-full md:max-w-sm">
           {header === true ? (
             <button onClick={Arrow}>
@@ -238,13 +238,13 @@ export function Nivel1() {
           {inputs.map((item, index) => (
             <div
               key={item}
-              className={`bg-gray-800 flex justify-center h-10 w-11 items-center rounded-full text-white text-2xl text-center `}
+              className={`bg-black flex justify-center h-10 w-11 items-center rounded-full text-white text-2xl text-center `}
             >
               <p> {resposta[index]} </p>
             </div>
           ))}
         </div>
-        <section className="bg-black w-full flex flex-col justify-start items-center mt-4 mb-8 px-5">
+        <section className="bg-gray-800 w-full flex flex-col justify-start items-center mt-4 mb-8 px-5">
           {HistoricoPalavras.map((item, index) => (
             <div key={index} className="flex gap-4 mt-4">
               {item.word &&

@@ -218,9 +218,15 @@ export function Nivel4() {
   function HandleDica() {
     if (dica === false) {
       setDica(true);
+      setTimeout(() => {
+        inputRef.current && inputRef.current.focus();
+      }, 30);
     }
     if (dica === true) {
       setDica(false);
+      setTimeout(() => {
+        inputRef.current && inputRef.current.focus();
+      }, 30);
     }
   }
   return (
@@ -262,21 +268,18 @@ export function Nivel4() {
                   dica, que deixa uma dica da palavra em português para lhe
                   ajudar no desafio.
                 </li>
+
                 <li>
-                  Digite uma palavra. Ao final de cada tentativa, o sistema te
-                  mostra o quão perto você está de resolver o enigma.
-                </li>
-                <li>
-                  Se a letra estiver dentro da palavra, mas em outra posição, a
-                  cor da letra será amarela. Se a letra estiver na posição
-                  correta, a cor será verde, e se a letra não existir na
-                  palavra, a cor será vermelha.
+                  Digite uma palavra, Se a letra estiver dentro da palavra, mas
+                  em outra posição, a cor da letra será amarela. Se a letra
+                  estiver na posição correta, a cor será verde, e se a letra não
+                  existir na palavra, a cor será vermelha.
                 </li>
                 {/* Adicione aqui mais itens conforme necessário */}
               </ul>
               <img className="my-4 rounded-lg" src={Exemplo} alt="Exemplo" />
               <button
-                className=" px-3 py-2 bg-white text-lg text-green-400 rounded-lg mt-2 hover:bg-green-400 hover:text-black"
+                className=" px-3 py-2 bg-black text-lg text-green-400 rounded-lg mt-2 hover:bg-green-400 hover:text-black"
                 onClick={interrogationFunction}
               >
                 {" "}
@@ -340,25 +343,7 @@ export function Nivel4() {
               </div>
             ))}
           </section>
-          <button
-            className="flex justify-center items-start gap-3 text-lg text-white mt-2 mb-2"
-            onClick={HandleDica}
-          >
-            {" "}
-            Ver Dica: <MdOutlineTipsAndUpdates size={30} color="#ffff00" />
-          </button>
-          {dica &&
-            palavraAleatoria &&
-            numberIndice1 &&
-            numberIndice2 !== undefined && (
-              <div
-                className="px-4 py-4 rounded-lg bg-yellow-400 flex justify-center items-center text-2xl"
-                key={numberIndice1}
-              >
-                <p>{palavras[numberIndice1]?.dica}</p>
-                <p>{palavras[numberIndice2]?.dica}</p>
-              </div>
-            )}
+
           <section className="bg-blue-950 w-full flex flex-col justify-start items-center mt-4 mb-8 px-3">
             {HistoricoPalavras.map((item, index) => (
               <div key={index} className="flex gap-1 mt-4">
@@ -385,6 +370,32 @@ export function Nivel4() {
             ))}
           </section>
         </div>
+        <button
+          className="flex px-3 py-2 justify-center items-start gap-3 text-lg text-white mt-2 mb-2"
+          onClick={HandleDica}
+        >
+          {" "}
+          Ver Dica: <MdOutlineTipsAndUpdates size={30} color="#ffff00" />
+        </button>
+        {dica &&
+          palavraAleatoria &&
+          numberIndice1 &&
+          numberIndice2 !== undefined && (
+            <section className="flex gap-2 mb-3">
+              <div
+                className="px-2 py-2 rounded-lg bg-yellow-400 flex flex-col justify-center items-center text-2xl"
+                key={numberIndice1}
+              >
+                <p>{palavras[numberIndice1]?.dica} </p>
+              </div>
+              <div
+                className="px-2 py-2 rounded-lg bg-yellow-400 flex flex-col justify-center items-center text-2xl"
+                key={numberIndice1}
+              >
+                <p>{palavras[numberIndice2]?.dica} </p>
+              </div>
+            </section>
+          )}
         <p className="text-lg text-white ">
           {" "}
           Tentativa: <span className="text-blue-300"> {tentativas} </span>{" "}

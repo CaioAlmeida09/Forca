@@ -184,12 +184,15 @@ export function Nivel3() {
     }
     if (dica === true) {
       setDica(false);
+      setTimeout(() => {
+        inputRef.current && inputRef.current.focus();
+      }, 0);
     }
   }
   return (
     <>
       {header === true ? <Header /> : <div></div>}
-      <div className=" bg-blue-950 w-full h-screen flex flex-col justify-start items-center p-5 ">
+      <div className=" bg-blue-800 w-full h-screen  flex flex-col justify-start items-center p-5 ">
         <section className="flex justify-between items-start w-full md:max-w-sm">
           {header === true ? (
             <button onClick={Arrow}>
@@ -221,15 +224,12 @@ export function Nivel3() {
                   inglês. Foi adicionado a opção de dica, que deixa uma dica da
                   palavra em português para lhe ajudar no desafio.
                 </li>
+
                 <li>
-                  Digite uma palavra. Ao final de cada tentativa, o sistema te
-                  mostra o quão perto você está de resolver o enigma.
-                </li>
-                <li>
-                  Se a letra estiver dentro da palavra, mas em outra posição, a
-                  cor da letra será amarela. Se a letra estiver na posição
-                  correta, a cor será verde, e se a letra não existir na
-                  palavra, a cor será vermelha.
+                  Digite uma palavra. Se a letra estiver dentro da palavra, mas
+                  em outra posição, a cor da letra será amarela. Se a letra
+                  estiver na posição correta, a cor será verde, e se a letra não
+                  existir na palavra, a cor será vermelha.
                 </li>
                 {/* Adicione aqui mais itens conforme necessário */}
               </ul>
@@ -276,7 +276,7 @@ export function Nivel3() {
             </div>
           ))}
         </div>
-        <section className="bg-blue-950 w-full flex flex-col justify-start items-center mt-4 mb-8 px-5">
+        <section className="bg-blue-800 w-full flex flex-col justify-start items-center mt-4 mb-8 px-5">
           {HistoricoPalavras.map((item, index) => (
             <div key={index} className="flex gap-4 mt-4">
               {item.word &&

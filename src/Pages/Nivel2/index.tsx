@@ -200,7 +200,7 @@ export function Nivel2() {
   return (
     <>
       {header === true ? <Header /> : <div></div>}
-      <div className="bg-black w-full h-screen flex flex-col justify-start items-center p-5 ">
+      <div className=" bg-black w-full h-screen flex flex-col justify-start items-center p-5 ">
         <section className="flex justify-between items-start w-full md:max-w-sm">
           {header === true ? (
             <button onClick={Arrow}>
@@ -330,7 +330,6 @@ export function Nivel2() {
               </div>
             ))}
           </section>
-          // ... (código posterior)
         </div>
         <p className="text-lg text-white ">
           {" "}
