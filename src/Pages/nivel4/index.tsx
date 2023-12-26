@@ -8,10 +8,11 @@ import { RiQuestionnaireLine } from "react-icons/ri";
 import { FaRegArrowAltCircleDown } from "react-icons/fa";
 import Exemplo from "../../assets/Exemplo1.jpg";
 import { useNavigate } from "react-router-dom";
+import { MdOutlineTipsAndUpdates } from "react-icons/md";
 
 // https://sweetalert2.github.io/#download
 
-export function Nivel2() {
+export function Nivel4() {
   const navigate = useNavigate();
   const [palavraAleatoria, setPalavraAleatoria] = useState<string | null>(null);
   const [palavraAleatoria2, setPalavraAleatoria2] = useState<string | null>(
@@ -24,20 +25,37 @@ export function Nivel2() {
   const [PrimeiroAcerto, setPrimeiroAcerto] = useState(false);
   const [SegundoAcerto, setSegundoAcerto] = useState(false);
   const [ganhou, setGanhou] = useState(false);
+  const [dica, setDica] = useState(false);
+  const [numberIndice1, setNumberIndice1] = useState<number>();
+  const [numberIndice2, setNumberIndice2] = useState<number>();
 
   const [HistoricoPalavras, setHistoricoPalavras] = useState<
     Record<string, string | null>[]
   >([]);
   const inputRef = useRef<HTMLInputElement>(null);
-  const palavras = ["MOELA", "FILHO", "GALHO", "CARGO", "FALSO"];
+  const palavras = [
+    { palavra: "apple", dica: "fruta" },
+    { palavra: "house", dica: "casa" },
+    { palavra: "table", dica: "mesa" },
+    { palavra: "music", dica: "música" },
+    { palavra: "earth", dica: "terra" },
+    { palavra: "river", dica: "rio" },
+    { palavra: "cloud", dica: "nuvem" },
+    { palavra: "happy", dica: "feliz" },
+    { palavra: "smart", dica: "inteligente" },
+    { palavra: "ocean", dica: "oceano" },
+  ];
   useEffect(() => {
     // sorteio 1
     const indiceAleatorio = Math.floor(Math.random() * palavras.length);
-    const novaPalavraAleatoria = palavras[indiceAleatorio];
+    setNumberIndice1(indiceAleatorio);
+    const novaPalavraAleatoria = palavras[indiceAleatorio].palavra;
     setPalavraAleatoria(novaPalavraAleatoria);
+
     // sorteio 2
     const indiceAleatorio2 = Math.floor(Math.random() * palavras.length);
-    const novaPalavraAleatoria2 = palavras[indiceAleatorio2];
+    setNumberIndice2(indiceAleatorio2);
+    const novaPalavraAleatoria2 = palavras[indiceAleatorio2].palavra;
     setPalavraAleatoria2(novaPalavraAleatoria2);
 
     setTimeout(() => {
@@ -197,10 +215,18 @@ export function Nivel2() {
       inputRef.current && inputRef.current.focus();
     }, 30);
   }
+  function HandleDica() {
+    if (dica === false) {
+      setDica(true);
+    }
+    if (dica === true) {
+      setDica(false);
+    }
+  }
   return (
     <>
       {header === true ? <Header /> : <div></div>}
-      <div className="bg-black w-full h-screen flex flex-col justify-start items-center p-5 ">
+      <div className="bg-blue-950 w-full h-screen flex flex-col justify-start items-center p-5 ">
         <section className="flex justify-between items-start w-full md:max-w-sm">
           {header === true ? (
             <button onClick={Arrow}>
@@ -221,12 +247,21 @@ export function Nivel2() {
           <>
             <div className=" w-full md:max-w-sm absolute mt-10 h-auto bg-gray-700 p-6 rounded-lg shadow-md flex flex-col items-center">
               <h1 className="text-2xl font-bold mb-4">Como Jogar?</h1>
-              <h2 className="text-lg font-semibold mb-2 mx-auto">Nível 2</h2>
+              <h2 className="text-lg font-semibold mb-2 mx-auto">
+                Nível 4 - Inglês
+              </h2>
               <h2 className="text-lg font-semibold mb-2 mx-auto">
                 Você precisa acertar
                 <span className="font-bold"> duas </span> palavras
               </h2>
               <ul className="text-lg font-medium list-disc pl-6">
+                <li>
+                  {" "}
+                  O estilo do Jogo pernamence, mas dessa vez a palavra são
+                  sorteadas duas palavras inglês. Foi adicionado a opção de
+                  dica, que deixa uma dica da palavra em português para lhe
+                  ajudar no desafio.
+                </li>
                 <li>
                   Digite uma palavra. Ao final de cada tentativa, o sistema te
                   mostra o quão perto você está de resolver o enigma.
@@ -241,7 +276,7 @@ export function Nivel2() {
               </ul>
               <img className="my-4 rounded-lg" src={Exemplo} alt="Exemplo" />
               <button
-                className=" px-3 py-2 bg-black text-lg text-green-400 rounded-lg mt-2 hover:bg-green-400 hover:text-black"
+                className=" px-3 py-2 bg-white text-lg text-green-400 rounded-lg mt-2 hover:bg-green-400 hover:text-black"
                 onClick={interrogationFunction}
               >
                 {" "}
@@ -280,7 +315,7 @@ export function Nivel2() {
           ))}
         </div>
         <div className="flex justify-between max-w-sm items-center">
-          <section className="bg-black w-full flex flex-col justify-start items-center mt-4 mb-8 px-3">
+          <section className="bg-blue-950 w-full flex flex-col justify-start items-center mt-4 mb-8 px-3">
             {HistoricoPalavras.map((item, index) => (
               <div key={index} className="flex gap-1 mt-4">
                 {item.word &&
@@ -305,7 +340,26 @@ export function Nivel2() {
               </div>
             ))}
           </section>
-          <section className="bg-black w-full flex flex-col justify-start items-center mt-4 mb-8 px-3">
+          <button
+            className="flex justify-center items-start gap-3 text-lg text-white mt-2 mb-2"
+            onClick={HandleDica}
+          >
+            {" "}
+            Ver Dica: <MdOutlineTipsAndUpdates size={30} color="#ffff00" />
+          </button>
+          {dica &&
+            palavraAleatoria &&
+            numberIndice1 &&
+            numberIndice2 !== undefined && (
+              <div
+                className="px-4 py-4 rounded-lg bg-yellow-400 flex justify-center items-center text-2xl"
+                key={numberIndice1}
+              >
+                <p>{palavras[numberIndice1]?.dica}</p>
+                <p>{palavras[numberIndice2]?.dica}</p>
+              </div>
+            )}
+          <section className="bg-blue-950 w-full flex flex-col justify-start items-center mt-4 mb-8 px-3">
             {HistoricoPalavras.map((item, index) => (
               <div key={index} className="flex gap-1 mt-4">
                 {item.word &&
@@ -330,7 +384,6 @@ export function Nivel2() {
               </div>
             ))}
           </section>
-          // ... (código posterior)
         </div>
         <p className="text-lg text-white ">
           {" "}

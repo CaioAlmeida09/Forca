@@ -117,6 +117,7 @@ export function Nivel3() {
           setHistoricoPalavras([]);
         });
         console.log(ganhou);
+        navigate("/nivel4");
       }
     }
 
