@@ -271,7 +271,7 @@ export function Nivel4() {
         </section>
         {interrogation === true ? (
           <>
-            <div className=" w-full md:max-w-sm absolute mt-10 h-auto bg-gray-700 p-6 rounded-lg shadow-md flex flex-col items-center">
+            <div className=" w-full md:max-w-sm absolute mt-10  bg-gray-700 p-6 rounded-lg shadow-md flex flex-col items-center overflow-y-scroll scroll-smooth h-5/6">
               <h1 className="text-2xl font-bold mb-4">Como Jogar?</h1>
               <h2 className="text-lg font-semibold mb-2 mx-auto">
                 Nível 4 - Inglês
@@ -338,7 +338,7 @@ export function Nivel4() {
           ))}
         </div>
         <div className="flex justify-between max-w-sm items-center">
-          <section className="bg-blue-950 w-full flex flex-col justify-start items-center mt-4 mb-8 px-3">
+          <section className="bg-blue-950 w-full flex flex-col justify-start items-center mt-4 mb-5 px-3">
             {HistoricoPalavras.map((item, index) => (
               <div key={index} className="flex gap-1 mt-4">
                 {item.word &&
@@ -364,7 +364,7 @@ export function Nivel4() {
             ))}
           </section>
 
-          <section className="bg-blue-950 w-full flex flex-col justify-start items-center mt-4 mb-8 px-3">
+          <section className="bg-blue-950 w-full flex flex-col justify-start items-center mt-4 mb-5 px-3">
             {HistoricoPalavras.map((item, index) => (
               <div key={index} className="flex gap-1 mt-4">
                 {item.word &&
@@ -421,7 +421,7 @@ export function Nivel4() {
           Tentativa: <span className="text-blue-300"> {tentativas} </span>{" "}
         </p>
         <button
-          className="bg-green-400 py-2 px-3 mt-5 rounded-lg"
+          className="bg-green-400 py-2 px-3 mt-3 rounded-lg"
           onClick={() => {
             HandleResposta();
             inputRef.current && inputRef.current.focus();
@@ -429,7 +429,11 @@ export function Nivel4() {
         >
           Verificar resposta
         </button>
-        <section className="grid grid-cols-6 gap-2 mt-8 w-71">
+        <section
+          className={`grid grid-cols-6 gap-2 mt-7 ${
+            tentativas >= 4 ? "grid-cols-9" : ""
+          }`}
+        >
           {Letras.map((item) => (
             <button
               key={item}

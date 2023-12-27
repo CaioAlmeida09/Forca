@@ -341,7 +341,7 @@ export function Nivel2() {
         </section>
         {interrogation === true ? (
           <>
-            <div className=" w-full md:max-w-sm absolute mt-10 h-auto bg-gray-700 p-6 rounded-lg shadow-md flex flex-col items-center">
+            <div className=" w-full md:max-w-sm absolute mt-10 bg-gray-700 p-6 rounded-lg shadow-md flex flex-col items-center overflow-y-scroll scroll-smooth h-5/6">
               <h1 className="text-2xl font-bold mb-4">Como Jogar?</h1>
               <h2 className="text-lg font-semibold mb-2 mx-auto">Nível 2</h2>
               <h2 className="text-lg font-semibold mb-2 mx-auto">
@@ -466,7 +466,11 @@ export function Nivel2() {
         >
           Verificar resposta
         </button>
-        <section className="grid grid-cols-6 gap-2 mt-8 w-71">
+        <section
+          className={`grid grid-cols-6 gap-2 mt-7 ${
+            tentativas >= 4 ? "grid-cols-9" : ""
+          }`}
+        >
           {Letras.map((item) => (
             <button
               key={item}

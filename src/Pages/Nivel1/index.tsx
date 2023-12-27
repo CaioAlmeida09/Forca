@@ -306,7 +306,7 @@ export function Nivel1() {
         </section>
         {interrogation === true ? (
           <>
-            <div className=" w-full md:max-w-sm absolute mt-10 h-auto bg-gray-700 p-6 rounded-lg shadow-md flex flex-col items-center">
+            <div className=" w-full md:max-w-sm absolute mt-10 bg-gray-700 p-6 rounded-lg shadow-md flex flex-col items-center overflow-y-scroll scroll-smooth h-5/6">
               <h1 className="text-2xl font-bold mb-4">Como Jogar?</h1>
               <h2 className="text-lg font-semibold mb-2 mx-auto">Nível 1</h2>
               <ul className="text-lg font-medium list-disc pl-6">
@@ -363,7 +363,7 @@ export function Nivel1() {
             </div>
           ))}
         </div>
-        <section className="bg-black w-full flex flex-col justify-start items-center mt-4 mb-8 px-5">
+        <section className="bg-black w-full flex flex-col justify-start items-center mt-4 mb-5 px-5">
           {HistoricoPalavras.map((item, index) => (
             <div key={index} className="flex gap-4 mt-4">
               {item.word &&
@@ -399,7 +399,11 @@ export function Nivel1() {
         >
           Verificar resposta
         </button>
-        <section className="grid grid-cols-6 gap-2 mt-8 w-71">
+        <section
+          className={`grid grid-cols-6 gap-2 mt-7 ${
+            tentativas >= 4 ? "grid-cols-9" : ""
+          }`}
+        >
           {Letras.map((item) => (
             <button
               key={item}

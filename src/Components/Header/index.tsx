@@ -10,7 +10,7 @@ export function Header() {
       style={{ background: "linear-gradient(to bottom, #2D2D2D, black)" }}
     >
       <section className="flex md:gap-5 gap-3">
-        <Link to="/nivel1" className=" font-medium md:text-xl text-sm">
+        <Link to="/" className=" font-medium md:text-xl text-sm">
           Nivel 1
         </Link>
         <Link to="/nivel2" className=" font-medium md:text-xl text-sm">

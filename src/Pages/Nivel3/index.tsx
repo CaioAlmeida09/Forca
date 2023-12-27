@@ -232,20 +232,20 @@ export function Nivel3() {
         </section>
         {interrogation === true ? (
           <>
-            <div className=" w-full md:max-w-sm absolute mt-10 h-auto bg-gray-700 p-6 rounded-lg shadow-md flex flex-col items-center">
+            <div className=" w-full md:max-w-sm absolute mt-10 bg-gray-700 p-6 rounded-lg shadow-md flex flex-col items-center overflow-y-scroll scroll-smooth h-5/6">
               <h1 className="text-2xl font-bold mb-4">Como Jogar?</h1>
-              <h2 className="text-lg font-semibold mb-2 mx-auto">
+              <h2 className="text-lg font-semibold mb-4 mx-auto">
                 Nível 3 - Inglês
               </h2>
               <ul className="text-lg font-medium list-disc pl-6">
-                <li>
+                <li className="mb-3">
                   {" "}
                   O estilo do Jogo pernamence, mas dessa vez a palavra é em
                   inglês. Foi adicionado a opção de dica, que deixa uma dica da
                   palavra em português para lhe ajudar no desafio.
                 </li>
 
-                <li>
+                <li className="mb-3">
                   Digite uma palavra. Se a letra estiver dentro da palavra, mas
                   em outra posição, a cor da letra será amarela. Se a letra
                   estiver na posição correta, a cor será verde, e se a letra não
@@ -255,15 +255,12 @@ export function Nivel3() {
               </ul>
               <img className="my-4 rounded-lg" src={Exemplo} alt="Exemplo" />
               <button
-                className=" px-3 py-2 bg-black text-lg text-green-400 rounded-lg mt-2 hover:bg-green-400 hover:text-black"
+                className=" px-3 py-2 bg-black text-lg text-green-400 rounded-lg mt-3 hover:bg-green-400 hover:text-black"
                 onClick={interrogationFunction}
               >
                 {" "}
                 vamos começar
               </button>
-              <div>
-                <p> {}</p>
-              </div>
             </div>
           </>
         ) : null}
@@ -347,7 +344,11 @@ export function Nivel3() {
         >
           Verificar resposta
         </button>
-        <section className="grid grid-cols-6 gap-2 mt-8 w-71">
+        <section
+          className={`grid grid-cols-6 gap-2 mt-7 ${
+            tentativas >= 4 ? "grid-cols-9" : ""
+          }`}
+        >
           {Letras.map((item) => (
             <button
               key={item}
