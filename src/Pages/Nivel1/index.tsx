@@ -363,7 +363,7 @@ export function Nivel1() {
             </div>
           ))}
         </div>
-        <section className="bg-black w-full flex flex-col justify-start items-center mt-4 mb-5 px-5">
+        <section className="bg-gray-800 w-full flex flex-col justify-start items-center mt-4 mb-5 px-5">
           {HistoricoPalavras.map((item, index) => (
             <div key={index} className="flex gap-4 mt-4">
               {item.word &&
@@ -412,7 +412,7 @@ export function Nivel1() {
                 HistoricoPalavras.some((historicoItem) =>
                   historicoItem.word?.toUpperCase().includes(item)
                 )
-                  ? "bg-gray-800"
+                  ? "bg-gray-900"
                   : "bg-gray-500"
               }`}
             >
