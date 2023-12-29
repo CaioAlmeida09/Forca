@@ -364,6 +364,14 @@ export function Nivel1() {
           ))}
         </div>
         <section className="bg-gray-800 w-full flex flex-col justify-start items-center mt-4 mb-5 px-5">
+          {/* <div className="flex gap-4 mt-4">
+            {" "}
+            <div className="` bg-orange-500 h-9 w-10 rounded-lg flex justify-center items-center text-lg"></div>
+            <div className="` bg-orange-500 h-9 w-10 rounded-lg flex justify-center items-center text-lg"></div>
+            <div className="` bg-orange-500 h-9 w-10 rounded-lg flex justify-center items-center text-lg"></div>
+            <div className="` bg-orange-500 h-9 w-10 rounded-lg flex justify-center items-center text-lg"></div>
+            <div className="` bg-orange-500 h-9 w-10 rounded-lg flex justify-center items-center text-lg"></div>
+          </div> */}
           {HistoricoPalavras.map((item, index) => (
             <div key={index} className="flex gap-4 mt-4">
               {item.word &&
