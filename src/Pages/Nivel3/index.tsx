@@ -144,7 +144,8 @@ export function Nivel3() {
     if (tentativas > 5 && !ganhou) {
       Swal.fire({
         title: "Que Pena...",
-        text: "Você não conseguiu dessa vez.",
+        text: `Você não conseguiu dessa vez.
+        A palavra Correta era: ${palavraAleatoria?.toUpperCase()}`,
         icon: "error",
         color: "#ff7b5a",
       });

@@ -264,7 +264,8 @@ export function Nivel2() {
       if (tentativas > 5 && !ganhou) {
         Swal.fire({
           title: "Que Pena...",
-          text: "Você não conseguiu dessa vez.",
+          text: `Você não conseguiu dessa vez.
+        As palavras Corretas eram: "${palavraAleatoria?.toUpperCase()}" e "${palavraAleatoria2?.toUpperCase()}" `,
           icon: "error",
           color: "#ff7b5a",
         });
